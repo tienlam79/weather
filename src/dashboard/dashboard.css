@@ -1,0 +1,33 @@
+.dashboard-container {
+  display: flex;
+  background-color: #619cfb;
+  min-height: 100vh;
+}
+/* HEADER STYLE */
+
+.dashboardHeader-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+}
+
+.dashboardHeader-header {
+  color: '#fff';
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.dashboardHeader-notify-icon {
+  width: 20px;
+  height: 20px;
+}
+.dashboardHeader-menu-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* HEADER STYLE */
