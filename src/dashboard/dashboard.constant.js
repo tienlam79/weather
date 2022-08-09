@@ -1,2 +1,9 @@
-export const TEMP = 29;
-export const DUMP = 24;
+export const TEMPERATURE = 29;
+export const HUMIDITY = 24;
+
+
+export const TIDE_DATA = [
+  {
+
+  }
+];
