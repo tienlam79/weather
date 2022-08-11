@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import DashboardHeader from './dashboard.header';
 import DashboardBody from './dashboard.body';
 import DashboardFooter from './dashboard.footer';
@@ -20,5 +19,6 @@ const Dashboard = () => {
     </div>
   );
 }
+
 
 export default Dashboard;

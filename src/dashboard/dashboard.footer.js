@@ -1,4 +1,5 @@
 import React from 'react';
+import plusIcon from './images/plus.svg';
 
 const DashboardFooter = () => {
   return (
@@ -19,12 +20,12 @@ const DashboardFooter = () => {
         </div>
       </InfoItem>
       <div className='dashboardFooter-add-view'>
-        Add
+        <img src={plusIcon} className='dashboardFooter-add-icon' />
+        <span className='dashboardFooter-add'>Add</span>
       </div>
     </div>
-  )
+  );
 }
-
 
 const InfoItem = ({ label, children,  footer }) => {
   return (

@@ -5,10 +5,18 @@
 }
 
 .dashboard-content {
-  background-color: #619cfb;
+  flex: 2;
+  background-image: linear-gradient(rgba(0, 67, 150), rgba(0, 105, 176), rgba(0, 113, 176));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashboard-chart {
+  flex: 1;
+  justify-content: flex-end;
 }
 /* HEADER STYLE */
-
 .dashboardHeader-container {
   display: flex;
   flex-direction: row;
@@ -18,10 +26,17 @@
   padding: 0 16px;
 }
 
-.dashboardHeader-header {
+.dashboardHeader-date {
+  color: rgba(255,255,255, 0.6);
+  font-size: 12px;
+  line-height: 24px;
+}
+
+.dashboardHeader-location {
   color: #fff;
   font-size: 16px;
   font-weight: 500;
+  line-height: 24px;
 }
 
 .dashboardHeader-notify-icon {
@@ -49,7 +64,7 @@
 .dashboardBody-info-item {
   display: flex;
   align-items: center;
-  padding: 10px;
+  margin-right: 10px;
 }
 
 .dashboardBody-info-value {
@@ -63,6 +78,8 @@
   font-weight: 600;
   color: #fff;
   line-height: 36px;
+  text-align: left;
+  margin-left: 10px;
 }
 .dashboardBody-info-icon {
   width: 20px;
@@ -70,8 +87,6 @@
 }
 
 .dashboardBody-cloud-img {
-  width: 150px;
-  height: 150px;
   margin-right: 20px;
 }
 
@@ -90,23 +105,24 @@
 
 .dashboardFooter-info-item {
   flex: 1;
-  border-right: 1px solid #fff;
+  border-right: 1px solid rgba(87, 164, 204);
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 8px 0;
 }
 
 .dashboardFooter-info-label {
-  font-size: 16px;
+  font-size: 14px;
   color: #fff;
   text-transform: uppercase;
+  font-weight: 500;
 }
 
 .dashboardFooter-psi {
-  background-color: green;
-  padding: 8px;
-  /* margin: 10px 0; */
+  background-color:rgba(0, 147, 0);
+  padding: 8px 10px;
   max-width: 80px;
   border-radius: 4px;
 }
@@ -125,7 +141,7 @@
 }
 
 .dashboardFooter-info-body {
-  height: 70px;
+  height: 60px;
   display: flex;
   align-items: center;
   /* max-height: 100px; */
@@ -137,6 +153,39 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+}
+
+.dashboardFooter-add-icon {
+  width: 30px;
+  height: 30px;
+}
+.dashboardFooter-add {
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 20px;
+  margin-top: 5px;
+  font-weight: 500;
 }
 /* END FOOTER STYLE */
 
+
+/* LENGEND CHART */
+
+.dashboardChart-content {
+  overflow: auto;
+}
+
+.legendChart-list {
+  display: flex;
+  align-items: center;
+
+}
+
+.legendChart-item {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  margin-right: 40px;
+}

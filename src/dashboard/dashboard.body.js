@@ -1,27 +1,31 @@
 import React from 'react';
 import { TEMPERATURE, HUMIDITY } from './dashboard.constant';
-import barsolidIcon from './images/bars-solid.svg';
+import temperatureIcon from './images/temperature.svg';
+import humidityIcon from './images/humidity.svg';
 import CloudImg from './images/cloud.png';
 
 const DashboardBody = () => {
   return (
     <div className='dashboardBody-container'>
-      <div>
-        <img src={CloudImg} className='dashboardBody-cloud-img' />
-      </div>
+      <img src={CloudImg} className='dashboardBody-cloud-img' />
       <div>
         <div className='dashboardBody-status'>Cloudy</div>
         <div className='dashboardBody-info-row'>
-          <div classsName='dashboardBody-info-item'>
-            {/* <img src={barsolidIcon} className='dasboardBody-info-icon' /> */}
-            <span className='dashboardBody-info-value'>{TEMPERATURE}C</span>
-          </div>
-          <div className='dashboardBody-info-item'>
-            {/* <img src={barsolidIcon} className='dasboardBody-info-icon' /> */}
-            <span className='dashboardBody-info-value'>{HUMIDITY}%</span>
-          </div>
+          <Item icon={temperatureIcon} value={`${TEMPERATURE}C`} /> 
+          <Item icon={humidityIcon} value={`${HUMIDITY}%`} /> 
         </div>
       </div>
+    </div>
+  );
+}
+
+const Item = ({ value, icon }) => {
+  return (
+    <div className='dashboardBody-info-item'>
+      <div style={{ width: '30px', height: '30px' }}>
+        <img src={icon} className='dasboardBody-info-icon' />
+      </div>
+      <span className='dashboardBody-info-value'>{value}</span>
     </div>
   );
 }
