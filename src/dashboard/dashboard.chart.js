@@ -1,29 +1,18 @@
-import React, { useLayoutEffect, useRef, useMemo } from 'react';
+import React, { useLayoutEffect, useRef, useMemo, useImperativeHandle, forwardRef } from 'react';
 import CanvasJSReact from '../assets/canvasjs.react';
-import { TIDE_COLOR, SUNRISE_COLOR, LEGEND_DATA, MARKER_SIZE } from './dashboard.constant';
+import { TIDE_COLOR, SUNRISE_COLOR, LEGEND_DATA, MARKER_SIZE, getChartTitle } from './dashboard.constant';
 
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const getOrdinalIndicator = (d) => {
-  if (d > 3 && d < 21) return 'th';
-  switch (d % 10) {
-    case 1:  return "st";
-    case 2:  return "nd";
-    case 3:  return "rd";
-    default: return "th";
-  }
-}
-
-const DashboardChart = () => {
+const DashboardChart = ({ date }, forwardRef) => {
   const markers = useRef([]);
   const chartRef = useRef();
-  const now = new Date();
   const options = useMemo(() => {
     return {
       animationEnabled: true,
       theme: "light2",
       title: {
-        text: `${now.getDate()}${getOrdinalIndicator(now.getDate())} ${now.toLocaleString('default', { month: 'long' })}`,
+        text: getChartTitle(date),
         fontColor: 'rgba(112, 112, 112)',
         fontSize: 20,
         padding: {
@@ -45,9 +34,6 @@ const DashboardChart = () => {
         gridThickness: 0,
         tickLength: 0,
         lineThickness: 0,
-        labelFormatter: function(){
-          return "";
-        },
       },
       toolTip: {
         shared: true
@@ -97,7 +83,38 @@ const DashboardChart = () => {
     };
   }, []);
 
+  const positionMarkerImage = (img, data) => { 
+    const chart = chartRef.current;
+    const pixelX = chart.axisX[0].convertValueToPixel(data.x);
+    const pixelY = chart.axisY[0].convertValueToPixel(data.y);
+    if (img) {
+      img.style.position = 'absolute';
+      img.style.display = 'block';
+      img.style.top = `${pixelY - MARKER_SIZE / 2}px`;
+      img.style.left = `${pixelX - MARKER_SIZE / 2}px`;
+    }
+  }
+  
   useLayoutEffect(() => {
+    const addMarkerImages = () => {
+      const sunData = options.data[1].dataPoints;
+      const markerItems = sunData.filter((item) => item.markerImageUrl);
+      markers.current = markerItems.map((item) => {
+        const img = document.createElement('img');
+        img.src = item.markerImageUrl;
+        img.style.width = `${MARKER_SIZE}px`;
+        img.style.height = `${MARKER_SIZE}px`;
+        img.style.display = 'none';
+        positionMarkerImage(img, item);
+        document.getElementsByClassName("canvasjs-chart-container")?.[0]?.appendChild(img);
+        return { img, data: item };
+      });
+    }
+    const handleResize = () => {
+      for(let i=0;i<markers.current.length;i++) {
+        positionMarkerImage(markers.current[i].img, markers.current[i].data);
+      }
+    }
     if (chartRef.current) {
       addMarkerImages();
     }
@@ -107,47 +124,16 @@ const DashboardChart = () => {
     }
   }, []);
 
-  const addMarkerImages = () => {
-    const chart = chartRef.current;
-    const sunData = chart.data[1].dataPoints;
-    const markerItems = sunData.filter((item) => item.markerImageUrl);
-    markers.current = markerItems.map((item) => {
-      const img = document.createElement('img');
-      img.src = item.markerImageUrl;
-      img.style.width = `${MARKER_SIZE}px`;
-      img.style.height = `${MARKER_SIZE}px`;
-      img.style.display = 'none';
-      positionMarkerImage(img, item);
-      document.getElementsByClassName("canvasjs-chart-container")[0].appendChild(img);
-      return { img, data: item };
-    });
-  }
+  useImperativeHandle(forwardRef, () => ({
+    getOptions: () => options
+  }));
 
-  const positionMarkerImage = (img, data) => { 
-    const chart = chartRef.current;
-    const pixelX = chart.axisX[0].convertValueToPixel(data.x);
-    const pixelY = chart.axisY[0].convertValueToPixel(data.y);
-
-    if (img) {
-      img.style.position = 'absolute';
-      img.style.display = 'block';
-      img.style.top = `${pixelY - MARKER_SIZE / 2}px`;
-      img.style.left = `${pixelX - MARKER_SIZE / 2}px`;
-    }
-  }
-  
-  const handleResize = () => {
-    for(let i=0;i<markers.current.length;i++) {
-      positionMarkerImage(markers.current[i].img, markers.current[i].data);
-    }
-  }
-  
   return (
     <div>
       <LegendChart data={LEGEND_DATA} />
       <div className='dashboardChart-content'>
         <CanvasJSChart
-          onRef = {ref => chartRef.current = ref}
+          onRef={ref => chartRef.current = ref}
           containerProps={{ height: '200px', minWidth: '700px' }}
           options={options}
         />
@@ -156,7 +142,7 @@ const DashboardChart = () => {
   );
 }
 
-export default React.memo(DashboardChart);
+export default React.forwardRef(DashboardChart);
 
 const LegendChart = ({ data }) => {
   return (
@@ -165,4 +151,3 @@ const LegendChart = ({ data }) => {
     </ul>
   );
 }
-

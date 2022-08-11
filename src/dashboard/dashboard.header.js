@@ -2,19 +2,19 @@ import React from 'react';
 import barsolidIcon from './images/bars.svg';
 import bellsolidIcon from './images/bell.svg';
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ location, date }) => {
   return (
     <div className='dashboardHeader-container'>
-      <img src={barsolidIcon} className='dashboardHeader-menu-icon' />
-      <div className='dashboardHeader-location'>
+      <img src={barsolidIcon} className='dashboardHeader-menu-icon' alt='menu-icon' />
+      <div>
         <div className='dashboardHeader-location'>
-          Ho Chi Minh City
+          {location?.city}
         </div>
         <div className='dashboardHeader-date'>
-          {new Date().toLocaleString()}
+          {date?.toLocaleString()}
         </div>
       </div>
-      <img src={bellsolidIcon} className='dashboardHeader-notify-icon' />
+      <img src={bellsolidIcon} className='dashboardHeader-notify-icon' alt='notify-icon' />
     </div>
   );
 }
