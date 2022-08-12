@@ -36,7 +36,12 @@ const DashboardChart = ({ date }, forwardRef) => {
         lineThickness: 0,
       },
       toolTip: {
-        shared: true
+        borderColor: '#fff',
+        cornerRadius: 10,
+        borderThickness: 0,
+        fontColor: 'rgba(0, 111, 156)',
+        fontWeight: 'bold'
+        // shared: true
       },
       legend: {
         cursor: "pointer",
@@ -52,6 +57,7 @@ const DashboardChart = ({ date }, forwardRef) => {
           markerType: 'none',
           showInLegend: false,
           color: TIDE_COLOR,
+          toolTipContent: "x: {x}, y: {y}",
           dataPoints: [
             { x: new Date(2022, 8, 8, 0, 0, 0), y: 1.2 },
             { x: new Date(2022, 8, 8, 1, 0, 0), y: 1.4 },

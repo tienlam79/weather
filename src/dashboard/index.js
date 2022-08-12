@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import DashboardHeader from './dashboard.header';
 import DashboardBody from './dashboard.body';
 import DashboardFooter from './dashboard.footer';
-import DashboardChart from './dashboard.chart';
+// import DashboardChart from './dashboard.chart';
+import DashboardCanvas from './dashboard.canvas';
 import './dashboard.css';
 import { IP_LOCATION, WEATHER_DATA } from './dashboard.constant';
 
@@ -29,7 +30,7 @@ const Dashboard = () => {
         />
       </div>
       <div className='dashboard-chart'>
-        <DashboardChart date={now} />
+        <DashboardCanvas date={now} />
       </div>
     </div>
   );

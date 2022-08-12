@@ -16,6 +16,7 @@
   flex: 1;
   justify-content: flex-end;
 }
+
 /* HEADER STYLE */
 .dashboardHeader-container {
   display: flex;
@@ -95,6 +96,14 @@
   align-items: center;
 }
 
+.dashboardFooter-dengue-view {
+  background-color: rgba(127, 184, 216);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
 /* END BODY STYLE */
 
 /* FOOTER STYLE */
@@ -153,7 +162,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
 }
 
 .dashboardFooter-add-icon {
@@ -175,6 +183,7 @@
 
 .dashboardChart-content {
   overflow: auto;
+  padding: 20px;
 }
 
 .legendChart-list {

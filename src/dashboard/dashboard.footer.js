@@ -15,8 +15,7 @@ const DashboardFooter = ({ psi, rain }) => {
         </div>
       </InfoItem>
       <InfoItem label='DENGUE'>
-        <div className='dashboardFooter-info-value'>
-          0
+        <div className='dashboardFooter-dengue-view'>
         </div>
       </InfoItem>
       <div className='dashboardFooter-add-view'>
