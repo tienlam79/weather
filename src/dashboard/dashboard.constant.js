@@ -48,17 +48,36 @@ export const TIDE_DATA = [
   { x: new Date(2022, 8, 16, 17, 11, 0), y: 3.49 },
   { x: new Date(2022, 8, 16, 23, 23, 0), y: 1 },
 
-  { x: new Date(2022, 8, 17, 0, 22, 0), y: 1.38 },
-  { x: new Date(2022, 8, 17, 6, 15, 0), y: 3.7 },
-  { x: new Date(2022, 8, 17, 12, 48, 0), y: 1.02 },
-  { x: new Date(2022, 8, 17, 19, 5, 0), y: 3.24 },
+  { x: new Date(2022, 8, 17, 5, 48, 0), y: 3.78 },
+  { x: new Date(2022, 8, 17, 12, 5, 0), y: 1.2 },
+  { x: new Date(2022, 8, 17, 18, 8, 0), y: 3.37 },
+  { x: new Date(2022, 8, 17, 23, 5, 0), y: 1.07 },
+
+//   High Tide	5:48 AM
+// (Wed 17 August)
+// 3.78 m
+// (12.4 ft)
+// Low Tide	12:05 PM
+// (Wed 17 August)
+// 1.2 m
+// (3.94 ft)
+// High Tide	6:08 PM
+// (Wed 17 August)
+// 3.37 m
+// (11.06 ft)
 ];
 
-export const SUNRISE_SUNSET_DATA = [
+export const SUN_DATA = [
   { x: new Date(2022, 8, 15, 5, 42, 0), y: new Date(2022, 8, 15, 18, 10, 0) },
-  { x: new Date(2022, 8, 16, 5, 42, 0), y: new Date(2022, 8, 16, 18, 10, 0) },
-  { x: new Date(2022, 8, 16, 5, 42, 0), y: new Date(2022, 8, 16, 18, 10, 0) }
-]
+  { x: new Date(2022, 8, 16, 5, 40, 0), y: new Date(2022, 8, 16, 18, 10, 0) },
+  { x: new Date(2022, 8, 17, 5, 41, 0), y: new Date(2022, 8, 17, 18, 10, 0) }
+];
+
+export const MOON_DATA = [
+  { x: new Date(2022, 8, 15, 19, 29, 0), y: new Date(2022, 8, 16, 7, 38, 0) },
+  { x: new Date(2022, 8, 16, 20, 14, 0), y: new Date(2022, 8, 17, 8, 31, 0) },
+  { x: new Date(2022, 8, 17, 20, 56, 0), y: new Date(2022, 8, 18, 9, 22, 0) }
+];
 
 const getOrdinalIndicator = (d) => {
   if (d > 3 && d < 21) return 'th';
@@ -74,6 +93,3 @@ export const getChartTitle = (date) => {
   const nth = getOrdinalIndicator(date.getDate());
   return `${date.getDate()}${nth} ${date.toLocaleString('default', { month: 'long' })}`;
 }
-
-
-

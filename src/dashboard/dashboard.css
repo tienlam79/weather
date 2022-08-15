@@ -183,6 +183,7 @@
 
 .dashboardChart-container {
   margin: 0 auto;
+  position: relative;
 }
 
 .dashboardChart-content {
@@ -200,4 +201,25 @@
   line-height: 20px;
   font-weight: 600;
   margin-right: 40px;
+}
+
+.dashboardChart-legend {
+  position: absolute;
+  top: 0;
+  left: 10px;
+}
+
+.dashboardChart-line {
+  width: 2px;
+  height: 250px;
+  position: absolute;
+  background-color: rgba(142, 143, 146, 0.4);
+  left: calc(50% - 2px);
+  bottom: 50px;
+}
+
+.dashboardChart-sun-img {
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
