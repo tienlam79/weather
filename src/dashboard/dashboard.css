@@ -181,18 +181,21 @@
 
 /* LENGEND CHART */
 
+.dashboardChart-container {
+  margin: 0 auto;
+}
+
 .dashboardChart-content {
   overflow: auto;
-  padding: 20px;
+  max-width: 1000px;
 }
 
-.legendChart-list {
+.dashboardChart-legend-list {
   display: flex;
   align-items: center;
-
 }
 
-.legendChart-item {
+.dashboardChart-legend-item {
   font-size: 16px;
   line-height: 20px;
   font-weight: 600;

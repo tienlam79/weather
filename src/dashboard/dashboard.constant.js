@@ -37,6 +37,29 @@ export const WEATHER_DATA = {
   }
 };
 
+export const TIDE_DATA = [
+  { x: new Date(2022, 8, 15, 4, 46, 0), y: 3.82 },
+  { x: new Date(2022, 8, 15, 10, 35, 0), y: 1.7 },
+  { x: new Date(2022, 8, 15, 16, 13, 0), y: 3.6 },
+  { x: new Date(2022, 8, 15, 22, 43, 0), y: 0.64 },
+
+  { x: new Date(2022, 8, 16, 5, 18, 0), y: 3.82 },
+  { x: new Date(2022, 8, 16, 11, 22, 0), y: 1.42 },
+  { x: new Date(2022, 8, 16, 17, 11, 0), y: 3.49 },
+  { x: new Date(2022, 8, 16, 23, 23, 0), y: 1 },
+
+  { x: new Date(2022, 8, 17, 0, 22, 0), y: 1.38 },
+  { x: new Date(2022, 8, 17, 6, 15, 0), y: 3.7 },
+  { x: new Date(2022, 8, 17, 12, 48, 0), y: 1.02 },
+  { x: new Date(2022, 8, 17, 19, 5, 0), y: 3.24 },
+];
+
+export const SUNRISE_SUNSET_DATA = [
+  { x: new Date(2022, 8, 15, 5, 42, 0), y: new Date(2022, 8, 15, 18, 10, 0) },
+  { x: new Date(2022, 8, 16, 5, 42, 0), y: new Date(2022, 8, 16, 18, 10, 0) },
+  { x: new Date(2022, 8, 16, 5, 42, 0), y: new Date(2022, 8, 16, 18, 10, 0) }
+]
+
 const getOrdinalIndicator = (d) => {
   if (d > 3 && d < 21) return 'th';
   switch (d % 10) {
@@ -51,3 +74,6 @@ export const getChartTitle = (date) => {
   const nth = getOrdinalIndicator(date.getDate());
   return `${date.getDate()}${nth} ${date.toLocaleString('default', { month: 'long' })}`;
 }
+
+
+

@@ -29,9 +29,7 @@ const Dashboard = () => {
           psi={weather.psi}
         />
       </div>
-      <div className='dashboard-chart'>
-        <DashboardCanvas date={now} />
-      </div>
+      <DashboardCanvas date={now} />
     </div>
   );
 }
