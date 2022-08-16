@@ -7,6 +7,8 @@ export const LEGEND_DATA = [
   { key: 'sunrise_sunset', title: 'Sunrise & Sunset', color: SUNRISE_COLOR },
 ];
 
+const MAX_CONTENT_WIDTH = 1024;
+
 export const IP_LOCATION = {
   country: "Vietnam",
   country_code: "VN",
@@ -38,6 +40,7 @@ export const WEATHER_DATA = {
 };
 
 export const TIDE_DATA = [
+  // { x: new Date(2022, 8, 15, 0, 0, 0), y: 1.05 },
   { x: new Date(2022, 8, 15, 4, 46, 0), y: 3.82 },
   { x: new Date(2022, 8, 15, 10, 35, 0), y: 1.7 },
   { x: new Date(2022, 8, 15, 16, 13, 0), y: 3.6 },
@@ -52,19 +55,6 @@ export const TIDE_DATA = [
   { x: new Date(2022, 8, 17, 12, 5, 0), y: 1.2 },
   { x: new Date(2022, 8, 17, 18, 8, 0), y: 3.37 },
   { x: new Date(2022, 8, 17, 23, 5, 0), y: 1.07 },
-
-//   High Tide	5:48 AM
-// (Wed 17 August)
-// 3.78 m
-// (12.4 ft)
-// Low Tide	12:05 PM
-// (Wed 17 August)
-// 1.2 m
-// (3.94 ft)
-// High Tide	6:08 PM
-// (Wed 17 August)
-// 3.37 m
-// (11.06 ft)
 ];
 
 export const SUN_DATA = [
@@ -91,5 +81,5 @@ const getOrdinalIndicator = (d) => {
 
 export const getChartTitle = (date) => {
   const nth = getOrdinalIndicator(date.getDate());
-  return `${date.getDate()}${nth} ${date.toLocaleString('default', { month: 'long' })}`;
+  return `<span>${date.getDate()}<sup>${nth}</sup> ${date.toLocaleString('default', { month: 'long' })}</span>`;
 }
