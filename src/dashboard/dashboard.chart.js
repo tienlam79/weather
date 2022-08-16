@@ -1,11 +1,11 @@
 import React, { useLayoutEffect, useRef } from 'react';
-import { LEGEND_DATA, TIDE_DATA, SUN_DATA, MOON_DATA, getChartTitle } from './dashboard.constant';
+import { LEGEND_DATA, getChartTitle } from './dashboard.constant';
 import SunIcon from './images/sun.svg';
 import MoonIcon from './images/moon.svg';
 
-const MAX_CHART_CONTENT_WIDTH = 1024;
-const LG_CHART_WIDTH = 6000;
-const XS_CHART_WIDTH = 3000;
+export const MAX_CHART_CONTENT_WIDTH = 1024;
+export const LG_CHART_WIDTH = 6000;
+export const XS_CHART_WIDTH = 3000;
 const CHART_HEIGHT = 300;
 const AXIS_X_HEIGHT = 30;
 const IMG_SIZE = 30;
@@ -13,10 +13,9 @@ const SPACING_TOP = 100;
 
 const LINE_HEIGHT = CHART_HEIGHT - AXIS_X_HEIGHT - SPACING_TOP;
 
-const DashboardCanvas = () => {
+const DashboardCanvas = ({ tideData, sunData, moonData }) => {
   const sunCurveLines = useRef([]).current;
   const moonRects = useRef([]).current;
-  const chartWidth = useRef(LG_CHART_WIDTH);
 
   useLayoutEffect(() => {
     initCanvas();
@@ -49,12 +48,13 @@ const DashboardCanvas = () => {
       drawSunriseLines(ctx, width, chartHeight);
       drawTideTooltips(ctx, width, height);
       drawMoonRect(ctx, width, chartHeight);
+      drawLineTime();
       initSunImgPosition(width, chartHeight);
     }
   }
 
   const initSunImgPosition = (width, height) => {
-    const lines = SUN_DATA.map(item => calculateCurvePoints(width, height, item.x, item.y));
+    const lines = sunData.map(item => calculateCurvePoints(width, height, item.x, item.y));
     calculateSunImgPosition(lines);
   }
 
@@ -101,19 +101,18 @@ const DashboardCanvas = () => {
   }
 
   const onScroll = () => {
-    const myCanvas = document.getElementById("chartContainer");
     calculateSunImgPosition(sunCurveLines);
     calculateMoonImgPosition();
-    drawLineTime(myCanvas.width);
+    drawLineTime();
   }
 
   const getMinDate = () => {
-    const min = TIDE_DATA[0];
+    const min = tideData[0];
     return new Date(min.x.getFullYear(), min.x.getMonth(), min.x.getDate(), 0, 0, 0);
   }
 
   const getMaxDate = () => {
-    const max = TIDE_DATA[TIDE_DATA.length - 1];
+    const max = tideData[tideData.length - 1];
     return new Date(max.x.getFullYear(), max.x.getMonth(), max.x.getDate(), 23, 59, 59);
   }
 
@@ -130,7 +129,9 @@ const DashboardCanvas = () => {
     return new Date(date.getTime() + minutes*60000);
 }
 
-  const drawLineTime = (width) => {
+  const drawLineTime = () => {
+    const myCanvas = document.getElementById("chartContainer");
+    const width = myCanvas.width;
     const x = getOffsetX();
 
     const minDate = getMinDate();
@@ -145,7 +146,7 @@ const DashboardCanvas = () => {
   }
 
   const calculateY = (height, dataY) => {
-    const itemMax = TIDE_DATA.reduce((acc, cur) => cur?.y > acc?.y ? cur : acc);
+    const itemMax = tideData.reduce((acc, cur) => cur?.y > acc?.y ? cur : acc);
     const maxY = Math.round(itemMax?.y);
 
     return Math.round(height - (dataY * (height - 100) / maxY));
@@ -169,9 +170,9 @@ const DashboardCanvas = () => {
     ctx.strokeStyle = 'rgba(107, 215, 244)';
     ctx.moveTo(0, height / 1.5);
 
-    for (let i = 0; i < TIDE_DATA.length; i++) {
-      var currentNode = TIDE_DATA[i];
-      var nextNode = TIDE_DATA[i+1];
+    for (let i = 0; i < tideData.length; i++) {
+      var currentNode = tideData[i];
+      var nextNode = tideData[i+1];
       if (nextNode) {
         const cx = calculateX(width, currentNode.x);
         const cy = calculateY(height, currentNode.y);
@@ -194,12 +195,12 @@ const DashboardCanvas = () => {
 
   const drawTideTooltips = (ctx, width, height) => {
     const tWidth = 65, tHeight = 40;
-    for (let i = 0; i < TIDE_DATA.length; i++) {
-      const x = calculateX(width, TIDE_DATA[i].x);
-      const y = calculateY(height, TIDE_DATA[i].y);
+    for (let i = 0; i < tideData.length; i++) {
+      const x = calculateX(width, tideData[i].x);
+      const y = calculateY(height, tideData[i].y);
 
       drawRoundedRect(ctx, x - tWidth / 2, y - tHeight, tWidth, tHeight, 5);
-      drawTooltipText(ctx, x - tWidth / 2 + 10, y - 20, TIDE_DATA[i].x, TIDE_DATA[i].y);
+      drawTooltipText(ctx, x - tWidth / 2 + 10, y - 20, tideData[i].x, tideData[i].y);
     }
   }
 
@@ -211,13 +212,12 @@ const DashboardCanvas = () => {
   }
   
   const drawSunriseLines = (ctx, width, height) => {
-    for (let i = 0; i < SUN_DATA.length; i ++) {
-      drawCurveLine(ctx, width, height, SUN_DATA[i].x, SUN_DATA[i].y);
+    for (let i = 0; i < sunData.length; i ++) {
+      drawCurveLine(ctx, width, height, sunData[i].x, sunData[i].y);
     }
   }
 
   const calculateCurvePoints = (width, height, x, y) => {
-    console.log('width...heght', width, height);
     const x1 = calculateX(width, x);
     const x2 = calculateX(width, y);
     
@@ -266,8 +266,8 @@ const DashboardCanvas = () => {
   }
 
   const drawMoonRect = (ctx, width, height) => {
-    for (let i = 0; i < MOON_DATA.length; i++) {
-      drawRect(ctx, width, height, MOON_DATA[i].x, MOON_DATA[i].y);
+    for (let i = 0; i < moonData.length; i++) {
+      drawRect(ctx, width, height, moonData[i].x, moonData[i].y);
     }
   }
 

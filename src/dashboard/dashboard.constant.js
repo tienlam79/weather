@@ -7,8 +7,6 @@ export const LEGEND_DATA = [
   { key: 'sunrise_sunset', title: 'Sunrise & Sunset', color: SUNRISE_COLOR },
 ];
 
-const MAX_CONTENT_WIDTH = 1024;
-
 export const IP_LOCATION = {
   country: "Vietnam",
   country_code: "VN",
@@ -40,7 +38,6 @@ export const WEATHER_DATA = {
 };
 
 export const TIDE_DATA = [
-  // { x: new Date(2022, 8, 15, 0, 0, 0), y: 1.05 },
   { x: new Date(2022, 8, 15, 4, 46, 0), y: 3.82 },
   { x: new Date(2022, 8, 15, 10, 35, 0), y: 1.7 },
   { x: new Date(2022, 8, 15, 16, 13, 0), y: 3.6 },
@@ -69,7 +66,7 @@ export const MOON_DATA = [
   { x: new Date(2022, 8, 17, 20, 56, 0), y: new Date(2022, 8, 18, 9, 22, 0) }
 ];
 
-const getOrdinalIndicator = (d) => {
+export const getOrdinalIndicator = (d) => {
   if (d > 3 && d < 21) return 'th';
   switch (d % 10) {
     case 1:  return "st";
