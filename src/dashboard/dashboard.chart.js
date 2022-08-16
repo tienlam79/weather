@@ -13,7 +13,6 @@ const SPACING_TOP = 100;
 
 const LINE_HEIGHT = CHART_HEIGHT - AXIS_X_HEIGHT - SPACING_TOP;
 
-
 const DashboardCanvas = () => {
   const sunCurveLines = useRef([]).current;
   const moonRects = useRef([]).current;
@@ -32,13 +31,12 @@ const DashboardCanvas = () => {
   }, []);
 
   const handleResize = () => {
-    chartWidth.current = window.innerWidth < 1024 ? XS_CHART_WIDTH : LG_CHART_WIDTH;
     initCanvas();
   }
 
   const initCanvas = () => {
     const myCanvas = document.getElementById("chartContainer");
-    myCanvas.width = chartWidth.current;
+    myCanvas.width = window.innerWidth <= 1024 ? XS_CHART_WIDTH : LG_CHART_WIDTH;
     myCanvas.height = CHART_HEIGHT;
     const ctx = myCanvas.getContext("2d");
     if (ctx) {
@@ -103,9 +101,10 @@ const DashboardCanvas = () => {
   }
 
   const onScroll = () => {
+    const myCanvas = document.getElementById("chartContainer");
     calculateSunImgPosition(sunCurveLines);
     calculateMoonImgPosition();
-    drawLineTime();
+    drawLineTime(myCanvas.width);
   }
 
   const getMinDate = () => {
@@ -131,8 +130,7 @@ const DashboardCanvas = () => {
     return new Date(date.getTime() + minutes*60000);
 }
 
-  const drawLineTime = () => {
-    const width = chartWidth.current;
+  const drawLineTime = (width) => {
     const x = getOffsetX();
 
     const minDate = getMinDate();
@@ -219,6 +217,7 @@ const DashboardCanvas = () => {
   }
 
   const calculateCurvePoints = (width, height, x, y) => {
+    console.log('width...heght', width, height);
     const x1 = calculateX(width, x);
     const x2 = calculateX(width, y);
     
