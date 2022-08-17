@@ -4,7 +4,7 @@ import DashboardBody from './dashboard.body';
 import DashboardFooter from './dashboard.footer';
 import DashboardChart from './dashboard.chart';
 import './dashboard.css';
-import { IP_LOCATION, MOON_DATA, SUNRISE_COLOR, SUN_DATA, TIDE_DATA, WEATHER_DATA } from './dashboard.constant';
+import { IP_LOCATION, MOON_DATA, SUN_DATA, TIDE_DATA, WEATHER_DATA } from './dashboard.constant';
 
 const Dashboard = () => {
   const [location] = useState(IP_LOCATION);
