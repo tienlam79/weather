@@ -1,12 +1,3 @@
-export const TIDE_COLOR = 'rgba(134, 222, 246)';
-export const SUNRISE_COLOR = 'orange';
-export const MARKER_SIZE = 30;
-
-export const LEGEND_DATA = [
-  { key: 'tide', title: 'Tide', color: TIDE_COLOR },
-  { key: 'sunrise_sunset', title: 'Sunrise & Sunset', color: SUNRISE_COLOR },
-];
-
 export const IP_LOCATION = {
   country: "Vietnam",
   country_code: "VN",
@@ -65,18 +56,3 @@ export const MOON_DATA = [
   { x: new Date(2022, 8, 16, 20, 14, 0), y: new Date(2022, 8, 17, 8, 31, 0) },
   { x: new Date(2022, 8, 17, 20, 56, 0), y: new Date(2022, 8, 18, 9, 22, 0) }
 ];
-
-export const getOrdinalIndicator = (d) => {
-  if (d > 3 && d < 21) return 'th';
-  switch (d % 10) {
-    case 1:  return "st";
-    case 2:  return "nd";
-    case 3:  return "rd";
-    default: return "th";
-  }
-}
-
-export const getChartTitle = (date) => {
-  const nth = getOrdinalIndicator(date.getDate());
-  return `<span>${date.getDate()}<sup>${nth}</sup> ${date.toLocaleString('default', { month: 'long' })}</span>`;
-}

@@ -1,0 +1,72 @@
+@import "index.scss";
+
+.dashboard-footer {
+  &-container {
+    display: flex;
+    align-items: center;
+  }
+  &-dengue-view {
+    background-color: $blue1;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 0.125rem solid #fff;
+  }
+  &-info-item {
+    flex: 1;
+    border-right: 0.0625rem solid $blue2;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+  &-info-label {
+    font-size: 1rem;
+    color: $white;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  &-psi {
+    background-color:$green;
+    padding: 0.5rem 0.625rem;
+    max-width: 5rem;
+    border-radius: 0.25rem;
+  }
+  &-info-status {
+    font-size: 1rem;
+    color: $white;
+    line-height: 1.5rem;
+    height: 1.5rem;
+  }
+  &-info-value {
+    font-size: 1.5rem;
+    color: $white;
+    font-weight: 700;
+    line-height: 2.25rem;
+  }
+  &-info-body {
+    height: 3.75rem;
+    display: flex;
+    align-items: center;
+  }
+  &-add-view {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &-add-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  &-add {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+    color: $white;
+  }
+}
+

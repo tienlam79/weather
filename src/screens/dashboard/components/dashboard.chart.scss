@@ -1,0 +1,56 @@
+@import "index.scss";
+
+.dashboard-chart {
+  &-container {
+    max-width: 100%;
+    position: relative;
+    margin: 0 auto;
+  }
+  &-content {
+    overflow-x: scroll;
+  }
+  &-legend {
+    position: absolute;
+    top: 0;
+  }
+  &-legend-list {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+  }
+  &-legend-item {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    margin-left: 2.25rem;
+  }
+  &-line {
+    width: 0.125rem;
+    position: absolute;
+    background-color: $gray04;
+    left: 50%;
+  }
+  &-sun-img {
+    position: absolute;
+    bottom: 0px;
+  }
+  &-time {
+    font-size: 14px;
+    color: $gray;
+    font-weight: 600;
+    position: absolute;
+    bottom: -23px;
+    width: 70px;
+    left: -32px;
+    background-color: $gray01;
+  }
+  &-date {
+    position: absolute;
+    top: 2.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}

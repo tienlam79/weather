@@ -1,12 +1,9 @@
 import React from 'react';
-import './App.css';
-import Dashboard from './dashboard';
+import Dashboard from './screens/dashboard';
 
 function App() {
   return (
-    <div>
-      <Dashboard />
-    </div>
+    <Dashboard />
   );
 }
 

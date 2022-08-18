@@ -1,0 +1,36 @@
+$white: #fff;
+$blue1:  rgb(127, 184, 216);
+$blue2: rgb(87, 164, 204);
+$green: rgb(0, 147, 0);
+$white06: rgba(255,255,255, 0.6);
+$gray04: rgba(142, 143, 146, 0.4);
+$gray: rgb(142, 143, 146);
+$gray01: rgb(231, 243, 255);
+$blue3: rgb(0, 67, 150);
+$blue4: rgb(0, 105, 176);
+$blue5:  rgb(0, 113, 176);
+
+html {
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+

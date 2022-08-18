@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import DashboardHeader from './dashboard.header';
-import DashboardBody from './dashboard.body';
-import DashboardFooter from './dashboard.footer';
-import DashboardChart from './dashboard.chart';
-import './dashboard.css';
-import { IP_LOCATION, MOON_DATA, SUN_DATA, TIDE_DATA, WEATHER_DATA } from './dashboard.constant';
+import DashboardHeader from './components/dashboard.header';
+import DashboardBody from './components/dashboard.body';
+import DashboardFooter from './components/dashboard.footer';
+import DashboardChart from './components/dashboard.chart';
+import './dashboard.scss';
+import { IP_LOCATION, MOON_DATA, SUN_DATA, TIDE_DATA, WEATHER_DATA } from './data';
 
 const Dashboard = () => {
   const [location] = useState(IP_LOCATION);

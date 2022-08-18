@@ -1,11 +1,19 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Dashboard from './index';
-import DashboardHeader  from './dashboard.header';
-import DashboardBody from './dashboard.body';
-import DashboardFooter from './dashboard.footer';
-import { IP_LOCATION, WEATHER_DATA, TIDE_DATA, SUN_DATA, MOON_DATA, getOrdinalIndicator } from './dashboard.constant';
-import DashboardChart, { LG_CHART_WIDTH, XS_CHART_WIDTH } from './dashboard.chart';
+import DashboardHeader  from './components/dashboard.header';
+import DashboardBody from './components/dashboard.body';
+import DashboardFooter from './components/dashboard.footer';
+import DashboardChart from './components/dashboard.chart';
 import React from 'react';
+import {
+  IP_LOCATION,
+  WEATHER_DATA,
+  TIDE_DATA,
+  SUN_DATA,
+  MOON_DATA,
+} from './data';
+import { getOrdinalIndicator } from 'helpers/utils';
+import Constants from 'helpers/constants';
 
 const resizeWindow = (x, y) => {
   window.innerWidth = x;
@@ -97,10 +105,10 @@ test('<DashboardChart> should resize canvas with', () => {
   />);
   resizeWindow(1024, window.innerHeight);
   const chartElement = document.getElementById('chartContainer');
-  expect(chartElement.width).toEqual(XS_CHART_WIDTH);
+  expect(chartElement.width).toEqual(Constants.XS_CHART_WIDTH);
 
   resizeWindow(1025, window.innerHeight);
-  expect(chartElement.width).toEqual(LG_CHART_WIDTH);
+  expect(chartElement.width).toEqual(Constants.LG_CHART_WIDTH);
 });
 
 test('<DashboardChart> should scroll canvas', () => {
@@ -127,4 +135,3 @@ test('<DashboardChart> should scroll canvas', () => {
   fireEvent.scroll(scrollChartContainer, { target: { scrollLeft: 2000 } });
   expect(moonImgElement.style.display).toEqual('block');
 });
-

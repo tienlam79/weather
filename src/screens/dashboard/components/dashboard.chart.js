@@ -1,19 +1,11 @@
 import React, { useLayoutEffect, useRef } from 'react';
-import { LEGEND_DATA, getChartTitle } from './dashboard.constant';
-import SunIcon from './images/sun.svg';
-import MoonIcon from './images/moon.svg';
+import { sunIcon, moonIcon } from 'assets/images';
+import { getTime, getChartTitle, diffMinutes, addMinutes } from 'helpers/utils';
+import Constants from 'helpers/constants';
+import Colors from 'helpers/colors';
+import './dashboard.chart.scss';
 
-export const MAX_CHART_CONTENT_WIDTH = 1024;
-export const LG_CHART_WIDTH = 6000;
-export const XS_CHART_WIDTH = 3000;
-const CHART_HEIGHT = 300;
-const AXIS_X_HEIGHT = 30;
-const IMG_SIZE = 30;
-const SPACING_TOP = 100;
-
-const LINE_HEIGHT = CHART_HEIGHT - AXIS_X_HEIGHT - SPACING_TOP;
-
-const DashboardCanvas = ({ tideData, sunData, moonData }) => {
+const DashboardChart = ({ tideData, sunData, moonData }) => {
   const sunCurveLines = useRef([]).current;
   const moonRects = useRef([]).current;
 
@@ -31,17 +23,18 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
 
   const handleResize = () => {
     initCanvas();
+    
   }
 
   const initCanvas = () => {
     const myCanvas = document.getElementById("chartContainer");
-    myCanvas.width = window.innerWidth <= 1024 ? XS_CHART_WIDTH : LG_CHART_WIDTH;
-    myCanvas.height = CHART_HEIGHT;
+    myCanvas.width = window.innerWidth <= 1024 ? Constants.XS_CHART_WIDTH : Constants.LG_CHART_WIDTH;
+    myCanvas.height = Constants.CHART_HEIGHT;
     const ctx = myCanvas.getContext("2d");
     if (ctx) {
       const width = ctx.canvas.width;
       const height = ctx.canvas.height;
-      const chartHeight = height - AXIS_X_HEIGHT;
+      const chartHeight = height - Constants.AXIS_X_HEIGHT;
     
       drawAxisX(ctx);
       drawTideLine(ctx, width, chartHeight);
@@ -82,7 +75,7 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
         t
       );
       sunImgElement.style.display = 'block';
-      sunImgElement.style.top = `${p.y - IMG_SIZE / 2 - SPACING_TOP}px`;
+      sunImgElement.style.top = `${p.y - Constants.IMG_SIZE / 2 - Constants.SPACING_TOP}px`;
     } else {
       sunImgElement.style.display = `none`;
     }
@@ -123,12 +116,6 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
     return Math.round((dataX.getTime() - minDate.getTime()) * width / (maxDate.getTime() - minDate.getTime()));
   }
 
-  const diffMinutes = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60));
-
-  const addMinutes = (date, minutes) => {
-    return new Date(date.getTime() + minutes*60000);
-}
-
   const drawLineTime = () => {
     const myCanvas = document.getElementById("chartContainer");
     const width = myCanvas.width;
@@ -167,7 +154,7 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
   const drawTideLine = (ctx, width, height) => {
     ctx.beginPath();
     ctx.lineWidth = 3;
-    ctx.strokeStyle = 'rgba(107, 215, 244)';
+    ctx.strokeStyle = Colors.malibu1;
     ctx.moveTo(0, height / 1.5);
 
     for (let i = 0; i < tideData.length; i++) {
@@ -186,7 +173,7 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
       }
     }
     ctx.stroke();
-    ctx.fillStyle = 'rgba(134, 222, 246)';
+    ctx.fillStyle = Colors.malibu;
     ctx.lineTo(width, height);
     ctx.lineTo(0, height);
     ctx.fill();
@@ -207,8 +194,8 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
   const drawTooltipText = (ctx, x, y, dataX, dataY) => {
     const time = getTime(dataX);
 
-    drawText(ctx, x, y, `${dataY.toFixed(2)} m`, 16, 'rgba(0, 123, 165)');
-    drawText(ctx, x, y + 15, time, 12, 'rgba(0, 123, 165)');
+    drawText(ctx, x, y, `${dataY.toFixed(2)} m`, 16, Colors.blue);
+    drawText(ctx, x, y + 15, time, 12, Colors.blue);
   }
   
   const drawSunriseLines = (ctx, width, height) => {
@@ -235,7 +222,7 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
     const { p1, p2, cp } = calculateCurvePoints(width, height, x, y);
     sunCurveLines.push({ p1, p2, cp });
 
-    ctx.strokeStyle = 'rgba(225, 147, 41)';
+    ctx.strokeStyle = Colors.fireBush;
     ctx.beginPath();
     ctx.moveTo(p1.x, p1.y);
     ctx.quadraticCurveTo(cp.x, cp.y, p2.x, p2.y);
@@ -247,15 +234,9 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
     ctx.restore();
   }
 
-  const getTime = (date) => {
-    const h = date.getHours();
-    const m = date.getMinutes();
-    return `${h >= 10 ? h : `0${h}`}:${m >= 10 ? m: `0${m}`} ${h > 12 ? 'pm': 'am'}`;
-  }
-
   const drawAxisXLabel = (ctx, date,  x , y) => {
     const text = getTime(date);
-    drawText(ctx, x, y, text, 14, 'rgba(255, 147, 44)');
+    drawText(ctx, x, y, text, 14, Colors.neonCarrot);
   }
 
   const drawText = (ctx, x, y, text, size, color) => {
@@ -279,7 +260,7 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
 
     const rectWidth = x2 - x1;
 
-    ctx.fillStyle = 'rgba(87, 87, 87, 0.4)';
+    ctx.fillStyle = Colors.doveGray;
     ctx.beginPath();
     ctx.fillRect(x1, 0, rectWidth, height);
     ctx.restore();
@@ -288,8 +269,8 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
   const drawAxisX = (ctx) => {
     const width = ctx.canvas.width;
     const height = ctx.canvas.height;
-    ctx.fillStyle = 'rgba(231, 243, 255)';
-    ctx.fillRect(0, height - AXIS_X_HEIGHT, width, AXIS_X_HEIGHT);
+    ctx.fillStyle = Colors.solitude;
+    ctx.fillRect(0, height - Constants.AXIS_X_HEIGHT, width, Constants.AXIS_X_HEIGHT);
     ctx.restore();
   }
 
@@ -307,46 +288,46 @@ const DashboardCanvas = ({ tideData, sunData, moonData }) => {
   }
   
   const imgStyle = {
-    width: `${IMG_SIZE}px`,
-    height: `${IMG_SIZE}px`,
-    left: `-${IMG_SIZE / 2 - 1}px`,
+    width: `${Constants.IMG_SIZE}px`,
+    height: `${Constants.IMG_SIZE}px`,
+    left: `-${Constants.IMG_SIZE / 2 - 1}px`,
     top: 0,
     display: 'none'
   };
 
   return (
-    <div className='dashboardChart-container'>
-      <div className='dashboardChart-content' id='chartWrapper' style={{ maxWidth: `${MAX_CHART_CONTENT_WIDTH}px` }}>
+    <div className='dashboard-chart-container'>
+      <div className='dashboard-chart-content' id='chartWrapper' style={{ maxWidth: `${Constants.MAX_CHART_CONTENT_WIDTH}px` }}>
         <canvas id="chartContainer">
           Your browser does not support the HTML canvas tag.
         </canvas>
       </div>
-      <div className='dashboardChart-legend'>
-        <ul className='dashboardChart-legend-list'>
-          {LEGEND_DATA.map((legend) => <li className='dashboardChart-legend-item' key={legend.key} style={{ color: legend.color }}>{legend.title}</li>)}
+      <div className='dashboard-chart-legend'>
+        <ul className='dashboard-chart-legend-list'>
+          {Constants.LEGEND_DATA.map((legend) => <li className='dashboard-chart-legend-item' key={legend.key} style={{ color: legend.color }}>{legend.title}</li>)}
         </ul>
       </div>
-      <div className='dashboardChart-date' id='chartDate'></div>
-      <div className='dashboardChart-line' id='chartLine' style={{ height: `${LINE_HEIGHT}px`, top: `${SPACING_TOP}px` }}>
+      <div className='dashboard-chart-date' id='chartDate'></div>
+      <div className='dashboard-chart-line' id='chartLine' style={{ height: `${Constants.CHART_HEIGHT - Constants.AXIS_X_HEIGHT - Constants.SPACING_TOP}px`, top: `${Constants.SPACING_TOP}px` }}>
         <img
-          src={SunIcon}
+          src={sunIcon}
           alt='sun-img'
-          className='dashboardChart-sun-img'
+          className='dashboard-chart-sun-img'
           id='chartSunImg'
           style={imgStyle}
         />
         <img
-          src={MoonIcon}
+          src={moonIcon}
           alt='moon-img'
-          className='dashboardChart-sun-img'
+          className='dashboard-chart-sun-img'
           id='chartMoonImg'
           style={{...imgStyle }}
         />
-        <div id='chartDateTime' className='dashboardChart-time'>
+        <div id='chartDateTime' className='dashboard-chart-time'>
         </div>
       </div>
     </div>
   );
 }
 
-export default DashboardCanvas;
+export default DashboardChart;

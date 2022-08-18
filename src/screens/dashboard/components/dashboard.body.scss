@@ -1,0 +1,40 @@
+@import "index.scss";
+
+.dashboard-body {
+  &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  &-info-item {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+  }
+  &-info-value {
+    font-size: 1rem;
+    color: $white;
+    font-weight: 500;
+  }
+  &-status {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $white;
+    line-height: 2.25rem;
+    text-align: left;
+    margin-left: 0.5rem;
+  }
+  &-info-icon {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+  &-cloud-img {
+    margin-right: 1.5rem;
+  }
+  &-info-row {
+    display: flex;
+    align-items: center;
+  }
+}
+
